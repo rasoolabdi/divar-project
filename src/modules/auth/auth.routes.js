@@ -6,5 +6,5 @@ router.post("/send-otp" , authController.sendOTP);
 router.post("/check-otp" , authController.checkOTP);
 
 module.exports = {
-    AuthRouterApi : router
+    AuthRouter: router
 }

@@ -27,8 +27,5 @@ class AuthController {
 
     };
 
-    async logout(req,res,next) {
-
-    }
 };
 module.exports = new AuthController();

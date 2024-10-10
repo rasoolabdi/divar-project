@@ -17,7 +17,7 @@ class AuthService {
         const now = new Date().getTime();
         const otp = {
              code: randomInt(100000 , 999999),
-             expiresIn: expiresIn = now + (1000 * 60 * 2)
+             expiresIn: now + (1000 * 60 * 2)
         };
 
         if(!user) {

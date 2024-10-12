@@ -8,6 +8,7 @@ const AuthMessage = Object.freeze({
     OtpCodeExpired : "کد تایید منقضی شده است",
     OtpCodeInCorrect: "کد تایید صحبح نمی باشد",
     LoginSuccessfully: "شما با موفقیت وارد شدید",
+    LoggedOut: "شما با موفقیت خارج شدید"
     
 });
 module.exports = AuthMessage;

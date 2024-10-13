@@ -61,7 +61,7 @@
  *               application/x-www-form-urlencoded:
  *                   schema:
  *                       $ref: "#/components/schemas/CheckOTP"   
- *               application/json:
+ *               application/json:  
  *                   schema:
  *                       $ref: "#/components/schemas/CheckOTP"
  *       responses:

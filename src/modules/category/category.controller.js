@@ -19,7 +19,7 @@ class CategoryController {
             const parent = req.body.parent;
 
             await this.#service.create({name , slug , icon , parent});
-            return res.status(HttpCodes.Created).json({
+            return res.status(201).json({
                 message: CategoryMessage.Created
             });
         }

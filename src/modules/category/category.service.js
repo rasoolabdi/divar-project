@@ -16,11 +16,11 @@ class CategoryService {
 
     async create(categoryDto) {
         console.log(categoryDto);
-        if(categoryDto?.parent && isValidObjectId(categoryDto.parent)) {
+        if(categoryDto?.parent && isValidObjectId(categoryDto?.parent)) {
             const existCategory = await this.checkExistById(categoryDto.parent);
             categoryDto.parent = existCategory._id;
             categoryDto.parents = [
-                ...new Set(
+                ... new Set(
                     ([existCategory._id.toString()].concat(
                         existCategory.parents.map((id) => id.toString())
                     )).map((id) => new Types.ObjectId(id))
@@ -39,7 +39,7 @@ class CategoryService {
     };
 
     async list() {
-
+        return await this.#model.find({parent : { $exists: false}});
     }
 
     async checkExistById(id) {

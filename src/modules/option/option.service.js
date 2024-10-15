@@ -31,6 +31,22 @@ class OptionService {
         return option;
     }
 
+    async list() {
+        const option = await this.#model.find({} , {__v: 0} , {sort: {_id: -1}}).populate([{path: "category" , select: {name: 1 , slug: 1} }]);
+        if(!option) throw new createHttpError.NotFound(OptionMessage.NotFound);
+        return option;
+    };
+
+    async findById(id) {
+        return await this.checkExistById(id);
+    };
+
+    async findByCategoryId(category){
+        const option = this.#model.find({category} , {__v: 0} , {sort: {_id: -1}}).populate([{path: "category" , select: {name: 1 , slug: 1}}]);
+        if(!option) throw new createHttpError.NotFound(OptionMessage.NotFound);
+        return option;
+    }
+
     async checkExistById(id) {
         const category = await this.#categoryModel.findById(id);
         if(!category) throw new createHttpError.NotFound(OptionMessage.NotFound);

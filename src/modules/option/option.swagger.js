@@ -24,6 +24,8 @@
  *                      type: string
  *                  guid: 
  *                      type: string
+ *                  required:
+ *                      type: boolean
  *                  type:
  *                      type: string
  *                      enum:

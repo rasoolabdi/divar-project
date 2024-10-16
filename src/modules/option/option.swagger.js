@@ -100,3 +100,19 @@
  *          200:
  *              description: getOption Successfully
  */
+
+/**
+ * @swagger
+ * /option/by-category-slug/{slug}:
+ *  get:
+ *      summary: get category by slug
+ *      tags:
+ *          -   Option
+ *      parameters:
+ *          -   name: slug
+ *              in: path
+ *              type: string
+ *      responses: 
+ *          200:
+ *              description: get categoryWithSlug Successfully
+ */

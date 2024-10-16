@@ -16,7 +16,7 @@ class OptionService {
     }
 
     async create(optionDto) {
-        const category = await this.checkExistById(optionDto.category);
+        const category = await this.checkExistCategoryById(optionDto.category);
         optionDto.category = category._id;
         console.log(optionDto.category);
         optionDto.key = slugify(optionDto.key , {trim: true , replacement: "_" , lower: true});
@@ -83,7 +83,18 @@ class OptionService {
         return option;
     }
 
+    async removeById(id) {
+        await this.checkExistById(id);
+        await this.#model.deleteOne({_id: id})
+    }
+
     async checkExistById(id) {
+        const option = await this.#model.findById(id);
+        if(!option) throw new createHttpError.NotFound(OptionMessage.NotFound);
+        return option;
+    }
+
+    async checkExistCategoryById(id) {
         const category = await this.#categoryModel.findById(id);
         if(!category) throw new createHttpError.NotFound(OptionMessage.NotFound);
         return category;

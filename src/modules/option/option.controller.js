@@ -66,5 +66,18 @@ class OptionController {
             next(error);
         }
     }
+
+    async removeById(req,res,next) {
+        try {
+            const id = req.params.id;
+            await this.#service.removeById(id);
+            return res.status(HttpsCodes.OK).json({
+                message: OptionMessage.Deleted
+            });
+        }
+        catch(error) {
+            next(error);
+        }
+    }
 };
 module.exports = new OptionController();

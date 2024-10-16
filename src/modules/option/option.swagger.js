@@ -71,7 +71,7 @@
 
 /**
  * @swagger
- * /option/category/{categoryId}:
+ * /option/by-category/{categoryId}:
  *  get:
  *      summary: get list options of category
  *      tags:
@@ -115,4 +115,20 @@
  *      responses: 
  *          200:
  *              description: get categoryWithSlug Successfully
+ */
+
+/**
+ * @swagger
+ * /option/remove/{id}:
+ *  delete: 
+ *      summary: delete option by id
+ *      tags:
+ *          -   Option
+ *      parameters:
+ *          -   name: id
+ *              in: path
+ *              type: string
+ *      responses: 
+ *          200:
+ *              description: deleted option successfully
  */

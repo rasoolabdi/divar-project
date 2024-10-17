@@ -4,7 +4,7 @@ const optionController = require("./option.controller");
 
 const router = Router();
 router.post("/create" , optionController.create);
-router.patch("/update/:id" , optionController.update);
+router.put("/update/:id" , optionController.update);
 router.get("/list" , optionController.list);
 router.get("/by-category/:categoryId" , optionController.findByCategoryId);
 router.get("/:id" , optionController.findById);

@@ -6,6 +6,7 @@ const { default: slugify } = require("slugify");
 const CategoryModel = require("../category/category.model");
 const categoryService = require("../category/category.service");
 const { isTrue, isFalse } = require("../../common/utils/functions");
+const { isValidObjectId } = require("mongoose");
 
 
 class OptionService {
@@ -38,7 +39,33 @@ class OptionService {
     };
 
     async update(id , optionDto) {
-        const optionId = await this.checkExistById(id);
+        console.log(optionDto)
+        const existOption = await this.checkExistById(id);
+        if(optionDto?.category && isValidObjectId(optionDto.category)) {
+            const category = await this.#categoryService.checkExistById(optionDto.category);
+            optionDto.category = category._id;
+        }
+        else {
+            delete optionDto.category;
+        }
+        if(optionDto.slug) {
+            optionDto.key = slugify(optionDto.key , {trim: true , replacement: "_" , lower: true});
+            let categoryId = existOption.category;
+            if(optionDto.category) categoryId = optionDto.category;
+            await this.alreadyExistByCategoryAndKey(optionDto.key , categoryId)
+        }
+
+        if(optionDto?.enum && typeof optionDto.enum === "string") {
+            optionDto.enum = optionDto.enum.split(",")
+        }
+        else if(!Array.isArray(optionDto.enum)) {
+            delete optionDto.enum;
+        }
+        if(optionDto?.required && isTrue(optionDto?.required)) optionDto.required = true;
+        if(optionDto?.required && isFalse(optionDto?.required)) optionDto.required = false;
+        delete optionDto.required;
+        const option  = await this.#model.updateOne({_id : id} , {$set: optionDto});
+        return option;
     }
 
     async list() {

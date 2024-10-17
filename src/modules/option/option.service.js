@@ -4,19 +4,23 @@ const createHttpError = require("http-errors");
 const { OptionMessage } = require("./option.message");
 const { default: slugify } = require("slugify");
 const CategoryModel = require("../category/category.model");
+const categoryService = require("../category/category.service");
+const { isTrue, isFalse } = require("../../common/utils/functions");
 
 
 class OptionService {
     #model;
     #categoryModel;
+    #categoryService;
     constructor() {
         autoBind(this);
         this.#model = OptionModel;
         this.#categoryModel = CategoryModel;
+        this.#categoryService = categoryService;
     }
 
     async create(optionDto) {
-        const category = await this.checkExistCategoryById(optionDto.category);
+        const category = await this.#categoryService.checkExistById(optionDto.category);
         optionDto.category = category._id;
         console.log(optionDto.category);
         optionDto.key = slugify(optionDto.key , {trim: true , replacement: "_" , lower: true});
@@ -27,6 +31,8 @@ class OptionService {
         else if(!Array.isArray(optionDto.enum)) {
             optionDto.enum = [];
         }
+        if(isTrue(optionDto?.required)) optionDto.required = true;
+        if(isFalse(optionDto?.required)) optionDto.required = false;
         const option = await this.#model.create(optionDto);
         return option;
     }
@@ -92,12 +98,6 @@ class OptionService {
         const option = await this.#model.findById(id);
         if(!option) throw new createHttpError.NotFound(OptionMessage.NotFound);
         return option;
-    }
-
-    async checkExistCategoryById(id) {
-        const category = await this.#categoryModel.findById(id);
-        if(!category) throw new createHttpError.NotFound(OptionMessage.NotFound);
-        return category;
     }
 
     async alreadyExistByCategoryAndKey(key , category) {

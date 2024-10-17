@@ -24,6 +24,19 @@ class OptionController {
         }
     };
 
+    async update(req,res,next) {
+        try {
+            const {id , title , key , guid , enum: list , category , required} = req.body;
+            await this.#service.update({id , title , key , guid , enum: list , category , required});
+            return res.status(HttpsCodes.OK).json({
+                message: OptionMessage.Update
+            });
+        }
+        catch(error) {
+            next(error);
+        }
+    }
+
     async list(req,res,next) {
         try {
             const options = await this.#service.list();

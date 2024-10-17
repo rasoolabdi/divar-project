@@ -35,6 +35,10 @@ class OptionService {
         if(isFalse(optionDto?.required)) optionDto.required = false;
         const option = await this.#model.create(optionDto);
         return option;
+    };
+
+    async update(id , optionDto) {
+        const optionId = await this.checkExistById(id);
     }
 
     async list() {

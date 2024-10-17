@@ -56,3 +56,19 @@
  *          200:
  *              description: getAll Category successfully
  */
+
+/**
+ * @swagger
+ * /category/remove/{id}:
+ *  delete:
+ *      summary: delete category from models option and category
+ *      tags:
+ *          -   Category
+ *      parameters:
+ *          -   name: id
+ *              in: path
+ *              type: string
+ *      responses:
+ *          200:
+ *              description: delete category successfully
+ */

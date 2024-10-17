@@ -93,26 +93,25 @@
  * @swagger
  * /option/update/{id}:
  *  put:
- *      summary: update option with id
+ *      summary: update option for post
  *      tags:
  *          -   Option
- *      parameters: 
+ *      parameters:
  *          -   name: id
  *              in: path
  *              type: string
  *      requestBody:
  *          content:
  *              application/x-www-form-urlencoded:
- *                  schema:
- *                      $ref: "#/components/schemas/UpdateOption"
+ *                      schema:
+ *                          $ref: "#/components/schemas/UpdateOption"
  *              application/json:
- *                  schema:
- *                      $ref: "#/components/schemas/UpdateOption"
+ *                      schema:
+ *                          $ref: "#/components/schemas/UpdateOption"
  *      responses:
  *          200:
- *              description: updated option Successfully
+ *              description: updateOption successfully
  */
-
 
 /**
  * @swagger

@@ -5,6 +5,7 @@ const mainRouter = require("./src/app.routes");
 const AllExceptionHandler = require("./src/common/exception/all-exception.handler");
 const NotFoundHandler = require("./src/common/exception/not-found.handler");
 const cookieParser = require("cookie-parser");
+const expressEjsLayouts = require("express-ejs-layouts");
 dotenv.config();
 
 
@@ -15,8 +16,13 @@ async function main() {
     app.use(express.json());
     app.use(express.urlencoded({extended: true}));
     app.use(cookieParser(process.env.COOKIE_SECRET_KEY));
-    SwaggerConfig(app);
+    app.use(express.static("public"));
+    app.use(expressEjsLayouts);
+    app.set("view engin" , "ejs");
+    app.set("layout" , "./layouts/panel/main.ejs");
+
     app.use(mainRouter);
+    SwaggerConfig(app);
     NotFoundHandler(app);
     AllExceptionHandler(app);
     

@@ -9,13 +9,24 @@
     <link rel="stylesheet" href="/home/header.css" />
     <link rel="stylesheet" href="/home/style.css" />
     <link rel="stylesheet" href="/home/post.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <link rel="stylesheet" href="/dist/css/mapp.min.css" />
+    <link rel="stylesheet" href="/dist/css/fa/style.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css"
       rel="stylesheet" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    
+    <style>
+      .smallWidth {
+        width: 250px;
+      }
+      .center {
+        right: 150px;
+        margin-right: 350px;
+      }
+    </style>
     <title>دیوار</title>
   </head>
   <body dir="rtl">
@@ -24,8 +35,9 @@
       <%-include("./aside.ejs")%>
 
       <main>
-        <h1 class="main-title">دیوار تهران:‌انواع آگهی‌ها و خدمات در تهران</h1>
-        <div class="main-grid-card"><%-body%></div>
+        <div class="main-grid-card">
+          <%-body%>
+        </div>
       </main>
     </section>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js"></script>

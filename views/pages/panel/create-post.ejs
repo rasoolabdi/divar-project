@@ -6,21 +6,37 @@
             </div>
         <%}%>
         <div class="p-3">
-            <%if(categories && categories.length > 0) {%>
-            <ul>
-                <%categories.forEach((category) =>{%>
-                    <li>
-                        <a
-                            href="/post/create?slug=<%=category.slug%>"
-                            class="w-100 p-3 d-block bg-light text-dark"
-                        >
-                            <span class="ti ti-<%=category.icon%> nav-small-cap-icon fs-4"></span>
-                            <span><%=category.name%></span>
-                        </a>
-                    </li>
+            <%if(!options){%>
+                <%if(categories && categories.length > 0) {%>
+                    <ul>
+                        <%categories.forEach((category) =>{%>
+                            <li>
+                                <a
+                                    href="/post/create?slug=<%=category.slug%>"
+                                    class="w-100 p-3 d-block bg-light text-dark"
+                                >
+                                    <span class="ti ti-<%=category.icon%> nav-small-cap-icon fs-4"></span>
+                                    <span><%=category.name%></span>
+                                </a>
+                            </li>
+                        <%})%>
+                    </ul>
+                    <%}%>
+            <%}else{%>
+                <%options.forEach((option) => {%>
+                    <label><%=option.title%></label>
+                    <%if(option.key === "array"){%>
+                        <select name="<%=option.key%>" class="form-controller">
+                            <%option.enum.forEach((item) => {%>
+                                <option value="<%=item%>"><%=item%></option>
+                            <%})%>
+                        </select>
+                    <%}else{%>
+                        <input type="text" name="<%=option.key%>" class="form-control" placeholder="<%=option.guid%>" />
+                    <%}%>
                 <%})%>
-            </ul>
             <%}%>
+            
         </div>
     </div>
 </div>

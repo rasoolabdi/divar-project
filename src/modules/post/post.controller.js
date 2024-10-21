@@ -18,10 +18,12 @@ class PostController {
             let slug = req.query.slug;
             let match = {parent: null}
             let showBack = false;
+            let options;
             if(slug) {
                 slug = slug.trim();
                 const category = await CategoryModel.findOne({ slug });
                 if(!category) throw new createHttpError.NotFound(PostMessage.NotFoundCategoryOfSlug);
+                options = await this.#service.getCategoryOptions(category.id);
                 showBack = true;
                 match = {
                     parent: category._id
@@ -34,7 +36,8 @@ class PostController {
             ]);
             res.render("./pages/panel/create-post.ejs" , {
                 categories,
-                showBack
+                showBack,
+                options
             });
         }
         catch(error) {

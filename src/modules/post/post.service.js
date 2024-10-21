@@ -13,6 +13,11 @@ class PostService {
         this.#OptionModel = OptionModel;
     }
 
+    async getCategoryOptions (categoryId) {
+        const options = await this.#OptionModel.find({category: categoryId});
+        return options;
+    }
+
 
 };
 module.exports = new PostService();

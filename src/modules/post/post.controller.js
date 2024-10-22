@@ -46,6 +46,14 @@ class PostController {
         }
     }
 
+    async create(req,res,next) {
+        try {
+            console.log(req.body);
+        }
+        catch(error) {
+            next(error);
+        }
+    }
 
 
 };

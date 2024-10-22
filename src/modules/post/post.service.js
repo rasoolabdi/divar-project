@@ -18,6 +18,8 @@ class PostService {
         return options;
     }
 
-
+    async create() {
+        
+    }
 };
 module.exports = new PostService();

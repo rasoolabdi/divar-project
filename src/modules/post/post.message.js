@@ -3,7 +3,8 @@ const PostMessage = Object.freeze({
     NotFoundCategoryOfSlug: "دسته بندی مورد نظر با این اسلاگ یافت نشد",
     Created: "پست مورد نظر با موفقیت ایجاد شد",
     Updated: "پست مورد نظر با موفقیت آپدیت شد",
-    Deleted: "پست مورد نظر با موفقیت حذف شد"
+    Deleted: "پست مورد نظر با موفقیت حذف شد",
+    NotSaved: "متاسفانه پست ذخیره نشد"
 });
 
 module.exports = {PostMessage};

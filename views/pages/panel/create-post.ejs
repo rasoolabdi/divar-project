@@ -27,6 +27,7 @@
                     <div>
                         <input type="hidden" name="lat" id="lat" />
                         <input type="hidden" name="lng" id="lng" />
+                        <input type="hidden" name="category" id="category" value="<%=category%>" />
                     </div>
                     <div class="p-2">
                         <label>انتخاب آدرس</label>
@@ -43,7 +44,7 @@
                         </div>
                         <div class="p-2">
                             <label>توضیحات آگهی</label>
-                            <textarea type="text" class="form-control" placeholder="توضیحات آگهی"></textarea>
+                            <textarea type="text" name="description" class="form-control" placeholder="توضیحات آگهی"></textarea>
                         </div>
                     </div>
                     <%options.forEach((option) => {%>
@@ -53,7 +54,7 @@
                         </label>
                         <%if(option.key === "array"){%>
                             <div class="p-2">
-                                <select name="<%=option.key%>" class="form-select">
+                                <select name="<%=option.title%>" class="form-select">
                                     <%option.enum.forEach((item) => {%>
                                         <option value="<%=item%>"><%=item%></option>
                                     <%})%>
@@ -61,7 +62,7 @@
                             </div>
                         <%}else{%>
                             <div class="p-2">
-                                <input type="text" name="<%=option.key%>" class="form-control" placeholder="<%=option.guid%>" />
+                                <input type="text" name="<%=option.title%>" class="form-control" placeholder="<%=option.guid%>" />
                             </div>
                         <%}%>
                     <%})%>

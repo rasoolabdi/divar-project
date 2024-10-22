@@ -1,6 +1,8 @@
 const autoBind = require("auto-bind");
 const PostModel = require("./post.model");
 const OptionModel = require("../option/option.model");
+const createHttpError = require("http-errors");
+const { PostMessage } = require("./post.message");
 
 
 class PostService {
@@ -18,8 +20,12 @@ class PostService {
         return options;
     }
 
-    async create() {
-        
+    async create(Dto) {
+        const postSave = await this.#model.create(Dto);
+        if(!postSave) {
+            throw new createHttpError.BadRequest(PostMessage.NotSaved)
+        }
+        return true;
     }
 };
 module.exports = new PostService();

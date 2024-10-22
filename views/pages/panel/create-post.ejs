@@ -23,16 +23,37 @@
                     </ul>
                     <%}%>
             <%}else{%>
+                <div class="p-2">
+                    <label for="images">تصاویر آگهی</label>
+                    <input type="file" name="images" multiple class="form-control" />
+                </div>
+                <div class="">
+                    <div class="p-2">
+                        <label for="title_post">عنوان آگهی</label>
+                        <input type="text" name="title_post" class="form-control" placeholder="عنوان آکهی" />
+                    </div>
+                    <div class="p-2">
+                        <label>توضیحات آگهی</label>
+                        <textarea type="text" class="form-control" placeholder="توضیحات آگهی"></textarea>
+                    </div>
+                </div>
                 <%options.forEach((option) => {%>
-                    <label><%=option.title%></label>
+                    <label>
+                        <%=option.title%>
+                        <span class="text-danger"><%=option.required ? "*" : ""%></span>
+                    </label>
                     <%if(option.key === "array"){%>
-                        <select name="<%=option.key%>" class="form-controller">
-                            <%option.enum.forEach((item) => {%>
-                                <option value="<%=item%>"><%=item%></option>
-                            <%})%>
-                        </select>
+                        <div class="p-2">
+                            <select name="<%=option.key%>" class="form-select">
+                                <%option.enum.forEach((item) => {%>
+                                    <option value="<%=item%>"><%=item%></option>
+                                <%})%>
+                            </select>
+                        </div>
                     <%}else{%>
-                        <input type="text" name="<%=option.key%>" class="form-control" placeholder="<%=option.guid%>" />
+                        <div class="p-2">
+                            <input type="text" name="<%=option.key%>" class="form-control" placeholder="<%=option.guid%>" />
+                        </div>
                     <%}%>
                 <%})%>
             <%}%>

@@ -8,6 +8,8 @@ const { Types } = require("mongoose");
 const { default: axios } = require("axios");
 const { getAddressUserDetail } = require("../../common/utils/http");
 const { removePropertyInObject } = require("../../common/utils/functions");
+const utf8 = require("utf8");
+
 
 
 
@@ -55,6 +57,8 @@ class PostController {
 
     async create(req,res,next) {
         try {
+            console.log(req.files);
+            const images = req?.files.map((image) => image?.path?.slice(7));
             const title = req.body.title_post;
             const content = req.body.description;
             const lat = req.body.lat;
@@ -63,11 +67,17 @@ class PostController {
             const {address , province , city , district , alley} = await getAddressUserDetail(lat,lng);
             const options = removePropertyInObject(req.body , ['title_post' , 'description' , 'lat' , 'lng' , 'category' , 'images' ]);
             console.log("op" , options);
+            for(let key in options) {
+                let value = options[key];
+                delete options[key];
+                key = utf8.decode(key);
+                options[key] = value;
+            }
             await this.#service.create({
                 title,
                 content,
                 category: new Types.ObjectId(category),
-                images: [],
+                images,
                 options,
                 address,
                 province,

@@ -6,6 +6,8 @@ const { PostMessage } = require("./post.message");
 const HttpCodes = require("http-codes");
 const { Types } = require("mongoose");
 const { default: axios } = require("axios");
+const { getAddressUserDetail } = require("../../common/utils/http");
+const { removePropertyInObject } = require("../../common/utils/functions");
 
 
 
@@ -58,22 +60,8 @@ class PostController {
             const lat = req.body.lat;
             const lng = req.body.lng;
             const category = req.body.category;
-            const result = await axios.get(`${process.env.MAP_IR_URL}?lat=${lat}&lon=${lng}` , {
-                headers: {
-                    "x-api-key": process.env.MAP_API_KEY
-                }
-            }).then((res) => {
-               return res.data
-            });
-            console.log(result);
-
-            delete req.body["title_post"];
-            delete req.body["description"];
-            delete req.body["lat"];
-            delete req.body["lng"];
-            delete req.body["category"];
-            delete req.body["images"];
-            const options = req.body;
+            const {address , province , city , district , alley} = await getAddressUserDetail(lat,lng);
+            const options = removePropertyInObject(req.body , ['title_post' , 'description' , 'lat' , 'lng' , 'category' , 'images' ]);
             console.log("op" , options);
             await this.#service.create({
                 title,
@@ -81,12 +69,12 @@ class PostController {
                 category: new Types.ObjectId(category),
                 images: [],
                 options,
-                address: result.address,
-                province: result.province,
-                city: result.city,
-                district: result.region,
-                alley: result.name,
-                coordinate: [lat , lng],
+                address,
+                province,
+                city,
+                district,
+                alley,
+                coordinate: [lat , lng]
             });
 
             return res.status(HttpCodes.OK).json({

@@ -52,7 +52,7 @@
                             <%=option.title%>
                             <span class="text-danger"><%=option.required ? "*" : ""%></span>
                         </label>
-                        <%if(option.key === "array"){%>
+                        <%if(option.type === "array"){%>
                             <div class="p-2">
                                 <select name="<%=option.title%>" class="form-select">
                                     <%option.enum.forEach((item) => {%>
@@ -62,7 +62,7 @@
                             </div>
                         <%}else{%>
                             <div class="p-2">
-                                <input type="text" name="<%=option.title%>" class="form-control" placeholder="<%=option.guid%>" />
+                                <input type="text" name="<%=option.title%>" class="form-select" placeholder="<%=option.guid%>" />
                             </div>
                         <%}%>
                     <%})%>

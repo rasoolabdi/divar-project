@@ -37,33 +37,33 @@
               <tbody>
                 <%posts.forEach((post) => {%>
                     <tr>
-                        <td><%post._id%></td>
+                        <td><%=post._id%></td>
                         <td><%=post.title%></td>
                         <td><%=post.content%></td>
-                        <td><%=post.createdAt%></td>
+                        <td><%=moment(post.createdAt).locale("fa").format("jDD jMMMM jYYYY")%></td>
+                        <td>
+                            <form
+                              action="/post/delete/?_method=delete"
+                              method="post"
+                              class="d-inline">
+                              <button type="submit" class="btn btn-danger">حذف</button>
+                              <a href="/post/" class="btn btn-success"
+                                >مشاهده</a
+                              >
+                            </form>
+                        </td>
                     </tr>
                 <%})%>
                 <tr>
-                  <td colspan="5">
-                    <p class="alert alert-warning text-center">
-                      شما هیچ آگهی را ثبت نکرده اید
-                    </p>
-                  </td>
-                </tr>
-                <tr>
-                  <td>sasasas</td>
-                  </td>
-                  <td>
-                    <form
-                      action="/post/delete/?_method=delete"
-                      method="post"
-                      class="d-inline">
-                      <button type="submit" class="btn btn-danger">حذف</button>
-                    </form>
-                    <a href="/post/" class="btn btn-success"
-                      >مشاهده</a
-                    >
-                  </td>
+                <%if(posts.length === 0) {%>
+                    <tr>
+                        <td colspan="5">
+                            <p class="alert alert-warning text-center">
+                              شما هیچ آگهی را ثبت نکرده اید
+                            </p>
+                        </td>
+                    </tr>
+                    <%}%>
                 </tr>
               </tbody>
             </table>

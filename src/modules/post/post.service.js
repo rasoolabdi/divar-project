@@ -3,6 +3,7 @@ const PostModel = require("./post.model");
 const OptionModel = require("../option/option.model");
 const createHttpError = require("http-errors");
 const { PostMessage } = require("./post.message");
+const { isValidObjectId } = require("mongoose");
 
 
 class PostService {
@@ -28,8 +29,11 @@ class PostService {
         return true;
     };
 
-    async list(query={}) {
-        return await this.#model.find({});
+    async list(userId) {
+        if(userId && isValidObjectId(userId)) {
+            return await this.#model.find({});
+        }
+        throw new createHttpError.BadRequest(PostMessage.RequestNotValid)
     };
 
 };

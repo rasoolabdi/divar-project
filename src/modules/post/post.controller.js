@@ -58,6 +58,7 @@ class PostController {
     async create(req,res,next) {
         try {
             console.log(req.files);
+            const userId = req.user._id;
             const images = req?.files.map((image) => image?.path?.slice(7));
             const title = req.body.title_post;
             const content = req.body.description;
@@ -74,6 +75,7 @@ class PostController {
                 options[key] = value;
             }
             await this.#service.create({
+                userId,
                 title,
                 content,
                 category: new Types.ObjectId(category),
@@ -98,8 +100,10 @@ class PostController {
 
     async postsList(req,res,next) {
         try {
-            const posts = await this.#service.list();
-            return res.render("./pages/panel/posts.ejs" , {posts});
+            console.log(req.user)
+            const userId = req.user._id;
+            const posts = await this.#service.list(userId);
+            return res.render("./pages/panel/posts.ejs" , { posts });
         }
         catch(error) {
             next(error)

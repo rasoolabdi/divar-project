@@ -4,7 +4,8 @@ const PostMessage = Object.freeze({
     Created: "پست مورد نظر با موفقیت ایجاد شد",
     Updated: "پست مورد نظر با موفقیت آپدیت شد",
     Deleted: "پست مورد نظر با موفقیت حذف شد",
-    NotSaved: "متاسفانه پست ذخیره نشد"
+    NotSaved: "متاسفانه پست ذخیره نشد",
+    RequestNotValid: "در خواست ارسال شده نامعتبر می باشد"
 });
 
 module.exports = {PostMessage};

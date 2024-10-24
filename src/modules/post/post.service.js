@@ -26,6 +26,11 @@ class PostService {
             throw new createHttpError.BadRequest(PostMessage.NotSaved)
         }
         return true;
-    }
+    };
+
+    async list(query={}) {
+        return await this.#model.find({});
+    };
+
 };
 module.exports = new PostService();

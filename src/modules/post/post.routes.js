@@ -5,6 +5,7 @@ const router = Router();
 
 router.get("/create" , postController.createPostPage);
 router.post("/create" , upload.array("images" , 10) , postController.create);
+router.get("/list" , postController.postsList);
 
 module.exports = {
     PostRouter: router

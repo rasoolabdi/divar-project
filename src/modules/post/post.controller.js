@@ -96,6 +96,16 @@ class PostController {
         }
     }
 
+    async postsList(req,res,next) {
+        try {
+            const posts = await this.#service.list();
+            return res.render("./pages/panel/posts.ejs" , {posts});
+        }
+        catch(error) {
+            next(error)
+        }
+    }
+
 
 };
 

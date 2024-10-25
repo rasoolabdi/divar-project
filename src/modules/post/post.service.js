@@ -52,5 +52,8 @@ class PostService {
         await this.#model.deleteOne({_id: postId});
     }
 
+    async showPost() {
+        
+    }
 };
 module.exports = new PostService();

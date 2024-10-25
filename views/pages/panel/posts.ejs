@@ -45,14 +45,12 @@
                         <td><%=moment(post.createdAt).locale("fa").format("jDD jMMMM jYYYY")%></td>
                         <td>
                             <form
-                              action="/post/delete/?_method=delete"
+                              action="/post/delete/<%=post._id%>?_method=delete"
                               method="post"
                               class="d-inline">
-                              <a class="btn btn-danger" href="/post/delete/<%=post._id%>">حذف</a>
-                              <a href="/post/" class="btn btn-success"
-                                >مشاهده</a
-                              >
+                              <button class="btn btn-danger" type="submit">حذف</button>
                             </form>
+                            <a href="/post/show-post/<%=post._id%>" class="btn btn-success">مشاهده</a>
                         </td>
                     </tr>
                 <%})%>

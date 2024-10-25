@@ -7,7 +7,8 @@ const router = Router();
 router.get("/create" , Authorization , postController.createPostPage);
 router.post("/create" , Authorization , upload.array("images" , 10) , postController.create);
 router.get("/list", Authorization , postController.postsList);
-router.get("/delete/:id" , postController.remove);
+router.delete("/delete/:id" , Authorization ,postController.remove);
+router.get("/show-post/:id" , postController.showPost);
 
 module.exports = {
     PostRouter: router

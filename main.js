@@ -8,6 +8,7 @@ const cookieParser = require("cookie-parser");
 const expressEjsLayouts = require("express-ejs-layouts");
 const moment = require("jalali-moment");
 dotenv.config();
+const methodOverride = require("method-override");
 
 
 async function main() { 
@@ -19,6 +20,7 @@ async function main() {
     app.use(cookieParser(process.env.COOKIE_SECRET_KEY));
     app.use(express.static("public"));
     app.use(expressEjsLayouts);
+    app.use(methodOverride("_method"));
     app.set("view engin" , "ejs");
     app.set("layout" , "./layouts/panel/main.ejs");
     app.use(mainRouter);

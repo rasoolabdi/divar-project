@@ -16,13 +16,13 @@ mainRouter.get("/" , (req,res) => {
     res.render("./pages/home/index.ejs");
 });
 
-mainRouter.get("/panel" , (req,res) => {
-    res.render("./pages/panel/dashboard.ejs")
-})
+// mainRouter.get("/panel" , (req,res) => {
+//     res.render("./pages/panel/dashboard.ejs")
+// })
 
-mainRouter.get("/auth/login" , (req,res) => {
-    res.locals.layout = "./layouts/auth/main.ejs"
-    res.render("./pages/auth/login.ejs")
-})
+// mainRouter.get("/auth/login" , (req,res) => {
+//     res.locals.layout = "./layouts/auth/main.ejs"
+//     res.render("./pages/auth/login.ejs")
+// })
 
 module.exports = mainRouter;

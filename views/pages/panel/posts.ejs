@@ -2,9 +2,11 @@
     <div class="col-lg-12 d-flex align-items-stretch">
       <div class="card w-100">
         <div class="card-body p-4">
-          <div class="row">
-            <p class="alert alert-info"></p>
-          </div>
+          <%if(success_message) {%>
+            <div class="row">
+              <p class="alert alert-info"><%=success_message%></p>
+            </div>
+          <%}%>
           <div class="row">
             <h5 class="card-title fw-semibold mb-4 col-lg-6">آگهی های من</h5>
             <span class="col-lg-6 text-left">

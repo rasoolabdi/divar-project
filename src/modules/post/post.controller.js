@@ -67,7 +67,6 @@ class PostController {
             const category = req.body.category;
             const {address , province , city , district , alley} = await getAddressUserDetail(lat,lng);
             const options = removePropertyInObject(req.body , ['title_post' , 'description' , 'lat' , 'lng' , 'category' , 'images' ]);
-            console.log("op" , options);
             for(let key in options) {
                 let value = options[key];
                 delete options[key];
@@ -88,9 +87,11 @@ class PostController {
                 alley,
                 coordinate: [lat , lng]
             });
-
-            return res.status(HttpCodes.OK).json({
-                message: PostMessage.Created
+            const posts = await this.#service.list(userId);
+            return res.render("./pages/panel/posts.ejs" , {
+                posts,
+                success_message: PostMessage.Created,
+                error_message: null
             })
         }
         catch(error) {
@@ -100,10 +101,13 @@ class PostController {
 
     async postsList(req,res,next) {
         try {
-            console.log(req.user)
             const userId = req.user._id;
             const posts = await this.#service.list(userId);
-            return res.render("./pages/panel/posts.ejs" , { posts });
+            return res.render("./pages/panel/posts.ejs" , { 
+                posts,
+                success_message: null,
+                error_message: null
+            });
         }
         catch(error) {
             next(error)

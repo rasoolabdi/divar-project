@@ -7,7 +7,7 @@
           <div class="post-title-location"><%=(post.city || post.province)%></div>
         </div>
         <div class="post-action">
-          <button class="post-button-action button">اطلاعات تماس</button>
+          <button class="post-button-action button" id="call-detail">اطلاعات تماس</button>
           <button class="post-button-chat button">چت</button>
 
           <!-- <img class="post-bookmark" src="./img/bookmark.svg" alt="" /> -->
@@ -82,3 +82,19 @@
     </div>
     <footer></footer>
   </div>
+  <script>
+      const callDetialBtn = document.getElementById("call-detail");
+      callDetialBtn.addEventListener("click" , () => {
+          Swal.fire({
+          title: "<%=post.userMobile%>",
+          text: "تماس با فروشنده",
+          icon: "info",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "تماس"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "tel://<%=post.userMobile%>"
+          }
+        });
+      })
+  </script>

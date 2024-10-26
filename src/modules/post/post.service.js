@@ -3,7 +3,7 @@ const PostModel = require("./post.model");
 const OptionModel = require("../option/option.model");
 const createHttpError = require("http-errors");
 const { PostMessage } = require("./post.message");
-const { isValidObjectId } = require("mongoose");
+const { isValidObjectId, Types } = require("mongoose");
 
 
 class PostService {
@@ -40,7 +40,38 @@ class PostService {
         if(!postId || !isValidObjectId(postId)) {
             throw new createHttpError.BadRequest(PostMessage.RequestNotValid)
         };
-        const post = await this.#model.findById(postId);
+        const [post] = await this.#model.aggregate([
+            {
+                $match: { _id: new Types.ObjectId(postId)}
+            },
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "userId",
+                    foreignField: "_id",
+                    as: "user"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$user",
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $addFields: {
+                    userMobile: "$user.mobile"
+                }
+            },
+            {
+                $project: {
+                    user: 0,
+                    __v: 0
+                }
+            }
+            
+        ])
+        console.log("log" , post);
         if(!post) {
             throw new createHttpError.NotFound(PostMessage.NotFound);
         }

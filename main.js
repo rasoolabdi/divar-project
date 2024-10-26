@@ -22,6 +22,8 @@ async function main() {
     app.use(expressEjsLayouts);
     app.use(methodOverride("_method"));
     app.set("view engin" , "ejs");
+    app.set("layout extractScripts" , true);
+    app.set("layout extractStyles" , true);
     app.set("layout" , "./layouts/panel/main.ejs");
     app.use(mainRouter);
     app.locals.moment = moment;

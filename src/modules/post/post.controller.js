@@ -65,8 +65,9 @@ class PostController {
             const lat = req.body.lat;
             const lng = req.body.lng;
             const category = req.body.category;
+            const amount = req.body.amount;
             const {address , province , city , district , alley} = await getAddressUserDetail(lat,lng);
-            const options = removePropertyInObject(req.body , ['title_post' , 'description' , 'lat' , 'lng' , 'category' , 'images' ]);
+            const options = removePropertyInObject(req.body , ['title_post' , 'description' , 'amount' , 'lat' , 'lng' , 'category' , 'images' ]);
             for(let key in options) {
                 let value = options[key];
                 delete options[key];
@@ -76,6 +77,7 @@ class PostController {
             await this.#service.create({
                 userId,
                 title,
+                amount,
                 content,
                 category: new Types.ObjectId(category),
                 images,
@@ -135,7 +137,18 @@ class PostController {
         }
     }
 
-
+    async findAllListOfPosts(req,res,next) {
+        try {
+            const query = req.query;
+            const posts = await this.#service.findAllListOfPosts(query);
+            res.locals.layout = "./layouts/website/main.ejs";
+            res.render("./pages/home/index.ejs" , {
+                posts
+            });
+        }
+        catch(error) {
+            next(error);
+        }
+    }
 };
-
 module.exports = new PostController();

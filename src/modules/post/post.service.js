@@ -4,16 +4,19 @@ const OptionModel = require("../option/option.model");
 const createHttpError = require("http-errors");
 const { PostMessage } = require("./post.message");
 const { isValidObjectId, Types } = require("mongoose");
+const CategoryModel = require("../category/category.model");
 
 
 class PostService {
 
     #model;
     #OptionModel;
+    #CategoryModel;
     constructor() {
         autoBind(this);
         this.#model = PostModel;
         this.#OptionModel = OptionModel;
+        this.#CategoryModel = CategoryModel;
     }
 
     async getCategoryOptions (categoryId) {
@@ -83,5 +86,29 @@ class PostService {
         await this.#model.deleteOne({_id: postId});
     }
 
+    async findAllListOfPosts(options) {
+        let { category , search } = options;
+        const query = {};
+        if(category) {
+            const result = await this.#CategoryModel.findOne({slug: category});
+            if(result) {
+                query["category"] = result._id;
+            }
+            else {
+                return [];
+            }
+        }
+        
+        if(search) {
+            search = new RegExp(search , "ig");
+            query["or"] = [
+                {title: search},
+                {description: search}
+            ]
+        }
+
+        const posts = await this.#model.find(query , {} , {sort: {_id: -1}})
+        return posts;
+    }
 };
 module.exports = new PostService();

@@ -9,7 +9,6 @@ router.post("/create" , Authorization , upload.array("images" , 10) , postContro
 router.get("/list", Authorization , postController.postsList);
 router.delete("/delete/:id" , Authorization ,postController.remove);
 router.get("/show-post/:id" , postController.showPost);
-
 module.exports = {
     PostRouter: router
 }

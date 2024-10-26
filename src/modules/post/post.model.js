@@ -4,6 +4,7 @@ const { Schema, Types, model } = require("mongoose");
 const PostSchema = new Schema({
     title: {type: String , required: true},
     userId: {type: Types.ObjectId , required: true},
+    amount: {type: Number , required: true ,default: 0},
     content: {type: String , required: true},
     category: {type: Types.ObjectId , ref: "category" , required: true},
     address: {type: String , required: false},
